@@ -1,0 +1,73 @@
+#!/usr/bin/env node
+// -*- mode: js -*-
+
+const fs = require('fs');
+const path = require('path');
+const lockfile = require('proper-lockfile');
+const loaderRunner = require('loader-runner');
+
+async function sleep(ms) {
+  return new Promise(resolve => { setTimeout(resolve, ms); });
+}
+
+async function lock(filename) {
+  while (true) {
+    try {
+      return await lockfile.lock(filename);
+    }
+    catch(err) {
+      await sleep(500);
+    }
+  }
+}
+
+async function runLoader(filename, config) {
+  return new Promise((resolve, reject) => {
+    loaderRunner.runLoaders(
+      {
+        resource: filename,
+        loaders: [{
+          loader: require.resolve('cpp-wasm-loader'),
+          options: config
+        }],
+        context: { minimize: true },
+        readResource: fs.readFile.bind(fs),
+      },
+      (err, result) => {
+        if (err) {
+          reject(err);
+        }
+        else {
+          resolve(result);
+        }
+      }
+    );
+  });
+}
+
+async function main() {
+  const filename = process.argv[2];
+  const config = JSON.parse(process.argv[3] || '{}');
+  const flags_ = config.emccFlags;
+  config.emccFlags = (flags/*, mode*/) => {
+    flags = flags.filter(flag => !/^-O/.test(flag));
+    if (flags_) {
+      flags = flags.concat(flags_);
+    }
+    return flags;
+  };
+  //console.error('config', config);
+  process.chdir(path.dirname(filename));
+  const unlock = await lock(filename);
+  try {
+    const result = await runLoader(filename, config);
+    const output = result.result[0];
+    //console.error('result = ', output);
+    console.log(output);
+  }
+  finally {
+    unlock();
+  }
+}
+
+main().catch(err => { throw err; });

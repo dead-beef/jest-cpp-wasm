@@ -1,0 +1,43 @@
+{
+	"root": true,
+	"env": {
+		"es6": true,
+		"node": true
+	},
+	"extends": "eslint:recommended",
+	"plugins": [
+		"jasmine"
+	],
+	"parserOptions": {
+		"ecmaVersion": 2017,
+		"ecmaFeatures": {
+			"jsx": true
+		},
+		"sourceType": "module"
+	},
+	"rules": {
+		"indent": [
+			"warn",
+			2,
+			{
+				"SwitchCase": 1
+			}
+		],
+		"linebreak-style": [
+			"error",
+			"unix"
+		],
+		"quotes": [
+			"error",
+			"single"
+		],
+		"semi": [
+			"error",
+			"always"
+		],
+		"no-unused-vars": "warn",
+		"no-console": "off",
+    "no-constant-condition": "off"
+	},
+	"globals": {}
+}

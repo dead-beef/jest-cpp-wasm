@@ -1,0 +1,42 @@
+{
+  "name": "jest-cpp-wasm",
+  "version": "0.1.0",
+  "author": "dead-beef",
+  "contributors": [],
+  "license": "MIT",
+  "description": "C/C++ to WASM Jest transformer",
+  "keywords": [
+    "jest",
+    "testing",
+    "wasm",
+    "webassembly",
+    "emscripten",
+    "c",
+    "c++"
+  ],
+  "homepage": "https://github.com/dead-beef/jest-cpp-wasm",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dead-beef/jest-cpp-wasm.git"
+  },
+  "bugs": {
+    "url": "https://github.com/dead-beef/jest-cpp-wasm/issues"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "cpp-wasm-loader": "^0.9.0",
+    "proper-lockfile": "^4.1.1",
+    "loader-runner": "^2.4.0"
+  },
+  "peerDependencies": {
+    "jest": ">=26 <27"
+  },
+  "devDependencies": {
+    "eslint": "7.x"
+  },
+  "scripts": {
+  },
+  "engines": {
+    "node": ">= 8"
+  }
+}
