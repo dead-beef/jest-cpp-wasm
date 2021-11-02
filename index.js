@@ -4,6 +4,9 @@ const child_process = require('child_process');
 
 module.exports = {
   getCacheKey: function getCacheKey(src, filename, configStr) {
+    if (typeof configStr !== 'string') {
+      configStr = JSON.stringify(configStr);
+    }
     return crypto
       .createHash('md5')
       .update(src)
@@ -14,6 +17,9 @@ module.exports = {
 
   getConfig: function getConfig(filename, config) {
     //console.log('getConfig', filename);
+    if (config.transformerConfig) {
+      return config.transformerConfig;
+    }
     for (const transform of config.transform) {
       const expr = new RegExp(transform[0]);
       //console.log('match transform', expr, expr.test(filename));
