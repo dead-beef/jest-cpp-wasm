@@ -1,6 +1,6 @@
 {
   "name": "jest-cpp-wasm",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "author": "dead-beef",
   "contributors": [],
   "license": "MIT",
@@ -29,7 +29,7 @@
     "loader-runner": "^2.4.0"
   },
   "peerDependencies": {
-    "jest": ">=26 <27"
+    "jest": ">=26 <28"
   },
   "devDependencies": {
     "eslint": "7.x"
